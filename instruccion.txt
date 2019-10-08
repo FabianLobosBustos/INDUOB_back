@@ -1,0 +1,14 @@
+INSTRUCCIONS:
+1. composer install
+2. php artisan key:generate
+2. npm install
+3. copiar archivo .env (obtener de internet) de larabel en directorio del proyecto.
+4. ajustar parametros de .env (archivo de configuracion)
+    -> Se necesita conectar a la base de datos
+6. php artisan migrate (por ningun motivo con reset o algo asi)
+7. php artisan serve (corre el back-end)
+8. npm install --save axios (opcional)
+8. npm run watch (corre el front-end)
+
+Luego dirigerse a la direccion de localhost
+
