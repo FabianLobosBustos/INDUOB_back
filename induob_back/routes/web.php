@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'DocumentoController@inicio')->name('inicio');
+Route::post('/','DocumentoController@guardarDocumento');
+
+Route::get('documento/descargar/{titulo}','DocumentoController@descargarDocumento');
+Route::get('documento/eliminar/{titulo}','DocumentoController@borrarDocumento');
