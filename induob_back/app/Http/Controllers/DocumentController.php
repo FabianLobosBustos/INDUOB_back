@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Documento;
+use App\Document;
 use Illuminate\Support\Facades\Storage;
 
-class DocumentoController extends Controller
+class DocumentController extends Controller
 {
+    //Modificar para que simplemente retorne el listado de documentos!
     public function inicio()
     {
 
-        $documento = Documento::all();
-
+        $documento = Document::all();
         return view('welcome', compact('documento'));
     }
 
@@ -25,13 +25,15 @@ class DocumentoController extends Controller
         $file = $request->file('documento');
         $fileName = $file->getClientOriginalName();
 
-        $docTemp = Documento::where('titulo', $fileName)->get();
+        $docTemp = Document::where('titulo', $fileName)->get();
         if (!$docTemp->isEmpty()) {
             return 'ya existe un archivo con el mismo nombre';
         }
-        $documento = new Documento;
+        $documento = new Document;
         $documento->titulo = $fileName;
         $documento->descripcion = 'vacio';
+        //Despues se asignara a un modulo en particular!!!
+        $documento->module_id = 1;
         $documento->save();
 
         $file->storeAs('logos', $fileName);
@@ -41,11 +43,11 @@ class DocumentoController extends Controller
     public function descargarDocumento($titulo)
     {
         $tituloDoc = $titulo.'.pdf';
-        $documento = Documento::where('titulo', $tituloDoc)->first();
+        $documento = Document::where('titulo', $tituloDoc)->get();
         if ($documento->isEmpty()) {
             return 'No existe archivo '.$tituloDoc;
         }
-
+        $documento = $documento->first();
         return response()->download(storage_path("app/logos/{$tituloDoc}"));
         //PDF file is stored under project/public/download/info.pdf
         // $file= public_path(). "/download/info.pdf";
@@ -54,7 +56,7 @@ class DocumentoController extends Controller
 
     public function borrarDocumento($titulo){
         $tituloDoc = $titulo.'.pdf';
-        $documento = Documento::where('titulo', $tituloDoc)->first();
+        $documento = Document::where('titulo', $tituloDoc)->first();
         if ($documento==NULL) {
             return 'No existe archivo '.$tituloDoc;
         }        

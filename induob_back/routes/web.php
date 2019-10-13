@@ -12,8 +12,15 @@
 */
 
 
-Route::get('/', 'DocumentoController@inicio')->name('inicio');
-Route::post('/','DocumentoController@guardarDocumento');
+//Documents
+Route::get('/', 'DocumentController@inicio')->name('inicio');
+Route::post('/','DocumentController@guardarDocumento');
 
-Route::get('documento/descargar/{titulo}','DocumentoController@descargarDocumento');
-Route::get('documento/eliminar/{titulo}','DocumentoController@borrarDocumento');
+Route::get('documents/download/{titulo}','DocumentController@descargarDocumento');
+Route::get('documents/erase/{titulo}','DocumentController@borrarDocumento');
+
+//Modules
+Route::apiResource('modules', 'ModuleController');
+
+//Question
+Route::get('questionByModule/{module_id}', 'QuestionController@index_by_module');

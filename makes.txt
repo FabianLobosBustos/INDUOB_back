@@ -9,6 +9,6 @@ php artisan make:seeder UsersTableSeeder  <-> php artisan db:seed
 php artisan make:controller PensamientoController --api
 php artisan migrate --pretend --no-ansi > migrate.sql  (guarda script) 
      -> es necesario no tener las migraciones corridas con anterioridad
-php artisan migrate:refresh (rollback y nuevamente up)
+ (rollback y nuevamente up)
 php artisan migrate:reset (dropea todo)
 php artisan route:list  (muestra la lista de rutas)
