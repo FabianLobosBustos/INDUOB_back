@@ -15,8 +15,7 @@ class CreateQuestionUserTable extends Migration
     {
         Schema::create('question_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->double('nota');
-            $table->boolean('aprobado');
+            $table->boolean('correcta'); //Si tuvo la respuesta correcta se marca como TRUE
 
             //Foraneas
             $table->bigInteger('question_id')->unsigned();

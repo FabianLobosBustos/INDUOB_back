@@ -36,12 +36,12 @@ class User extends Authenticatable
 
     public function questions()
     {
-        return $this->belongsToMany(Question::class,'question_user')->withPivot('nota','aprobado');
+        return $this->belongsToMany(Question::class,'question_user')->withPivot('correcta');
     }
 
     public function modules()
     {
-        return $this->belongsToMany(Module::class,'module_user')->withPivot('consultado','completado','fecha_consulta');
+        return $this->belongsToMany(Module::class,'module_user')->withPivot('consultado','completado','fecha_consulta','nota');
     }
 
 }

@@ -16,10 +16,11 @@ class CreateModuleUserTable extends Migration
         Schema::create('module_user', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->dateTime('fecha_consulta'); 
+            $table->dateTime('fecha_consulta');  //Fecha de ultima consulta
             //el completado podria ser un boolean!!! (al terminar la prueba se completa?)
             $table->double('completado'); //Porcentaje de completitud del modulo (pensar)
             $table->boolean('consultado');
+            $table->double('nota');
 
             //Foraneas
             $table->bigInteger('module_id')->unsigned();
