@@ -11,11 +11,15 @@ class DocumentController extends Controller
     //Modificar para que simplemente retorne el listado de documentos!
     public function inicio()
     {
-
         $documento = Document::all();
         return view('welcome', compact('documento'));
     }
 
+    public function index()
+    {
+        $documentos = Document::all();
+        return $documentos;
+    }
     public function guardarDocumento(Request $request)
     {
         $this->validate($request, [
@@ -40,27 +44,28 @@ class DocumentController extends Controller
         return  redirect()->route('inicio');
     }
 
-    public function descargarDocumento($titulo)
+    public function descargarDocumento($id_documento)
     {
-        $tituloDoc = $titulo.'.pdf';
-        $documento = Document::where('titulo', $tituloDoc)->get();
+        
+        $documento = Document::where('id', $id_documento)->get();
         if ($documento->isEmpty()) {
-            return 'No existe archivo '.$tituloDoc;
+            return 'No existe archivo solicitado';
         }
         $documento = $documento->first();
-        return response()->download(storage_path("app/logos/{$tituloDoc}"));
+        return response()->download(storage_path("app/logos/{$documento->titulo}"));
         //PDF file is stored under project/public/download/info.pdf
         // $file= public_path(). "/download/info.pdf";
 
     }
 
-    public function borrarDocumento($titulo){
-        $tituloDoc = $titulo.'.pdf';
-        $documento = Document::where('titulo', $tituloDoc)->first();
+    public function borrarDocumento($id_documento){
+        
+        $documento = Document::where('id', $id_documento)->first();
         if ($documento==NULL) {
-            return 'No existe archivo '.$tituloDoc;
+            return 'No existe archivo ';
         }        
+        
+        Storage::delete('logos'.'/'.$documento->titulo);
         $documento->delete();
-        Storage::delete('logos'.'/'.$tituloDoc);
     }
 }

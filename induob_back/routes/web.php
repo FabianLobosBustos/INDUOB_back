@@ -16,8 +16,9 @@
 Route::get('/', 'DocumentController@inicio')->name('inicio');
 Route::post('/','DocumentController@guardarDocumento');
 
-Route::get('documents/download/{titulo}','DocumentController@descargarDocumento');
-Route::get('documents/erase/{titulo}','DocumentController@borrarDocumento');
+Route::get('documents/download/{document_id}','DocumentController@descargarDocumento');
+Route::get('documents/erase/{document_id}','DocumentController@borrarDocumento');
+Route::get('documents','DocumentController@index');
 
 //Modules
 Route::apiResource('modules', 'ModuleController');
